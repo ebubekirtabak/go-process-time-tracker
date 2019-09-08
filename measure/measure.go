@@ -19,6 +19,10 @@ func StartTime(name string) {
 	excutes = append(excutes, measure)
 }
 
+func PauseTime(name string) {
+
+}
+
 func FinishTime(name string) types.Measure {
 	index := indexOf(name, excutes)
 	if index > -1 {
