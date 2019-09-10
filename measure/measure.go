@@ -6,10 +6,6 @@ import (
 	"time"
 )
 
-func Text() {
-	fmt.Println("sfsd")
-}
-
 var excutes []types.Measure
 
 func StartTime(name string) {
@@ -19,8 +15,31 @@ func StartTime(name string) {
 	excutes = append(excutes, measure)
 }
 
-func PauseTime(name string) {
+func ResumeTime(name string) {
+	index := indexOf(name, excutes)
+	if index > -1 {
+		var measure= excutes[index]
+		measure.StartTime = time.Now().Unix()
+		measure.FinishTime = 0
+		excutes[index] = measure
+	}
+}
 
+
+func PauseTime(name string) {
+	index := indexOf(name, excutes)
+	if index > -1 {
+		var measure= excutes[index]
+		measure.Name = name
+		measure.FinishTime = time.Now().Unix()
+		time1 := time.Unix(measure.StartTime, 0)
+		time2 := time.Unix(measure.FinishTime, 0)
+		diff := time2.Sub(time1)
+		measure.TotalTime += diff
+		out := time.Time{}.Add(diff)
+		fmt.Println(out.Format("15:04:05"))
+		excutes[index] = measure
+	}
 }
 
 func FinishTime(name string) types.Measure {
@@ -43,17 +62,14 @@ func GetExecuteTime(name string) {
 		time1 := time.Unix(measure.StartTime, 0)
 		time2 := time.Unix(measure.FinishTime, 0)
 		diff := time2.Sub(time1)
-		out := time.Time{}.Add(diff)
-		fmt.Println(time1)
-		fmt.Println(time2)
+		measure.TotalTime += diff
+		out := time.Time{}.Add(measure.TotalTime)
 		fmt.Println(out.Format("15:04:05"))
 	}
 }
 
 func indexOf(element string, data []types.Measure) (int) {
 	for k, v := range data {
-		fmt.Println(k)
-		fmt.Println(v)
 		if v.Name == element {
 			return k
 		}
