@@ -87,6 +87,8 @@ func GetExecuteTimeJson(name string) ([]byte, error)  {
 		}
 		return measureJson, nil
 	}
+
+	return nil, fmt.Errorf("Execute not found: %s", name)
 }
 
 func indexOf(element string, data []types.Measure) (int) {
