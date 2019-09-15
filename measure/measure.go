@@ -27,6 +27,10 @@ func ResumeTime(name string, delayPointName string) {
 			delayLog := measure.Delaylogs[delayIndex]
 			delayLog.StartTime = measure.FinishTime
 			delayLog.FinishTime = measure.StartTime
+			startTime := time.Unix(delayLog.StartTime, 0)
+			finishTime := time.Unix(delayLog.FinishTime, 0)
+			diff := finishTime.Sub(startTime)
+			delayLog.TotalTime += diff
 			measure.Delaylogs[delayIndex] = delayLog
 		}
 
