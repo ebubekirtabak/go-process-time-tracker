@@ -17,16 +17,19 @@ func StartTime(name string) {
 	excutes = append(excutes, measure)
 }
 
-func ResumeTime(name string) {
+func ResumeTime(name string, delayPointName string) {
 	index := indexOf(name, excutes)
 	if index > -1 {
 		var measure= excutes[index]
 		measure.StartTime = time.Now().Unix()
-		delayLog := types.DelayLog{}
-		delayLog.StartTime = measure.FinishTime
-		delayLog.FinishTime = measure.StartTime
+		delayIndex := indexOfDelayLog(delayPointName, measure)
+		if delayIndex > -1 {
+			delayLog := measure.Delaylogs[delayIndex]
+			delayLog.StartTime = measure.FinishTime
+			delayLog.FinishTime = measure.StartTime
+			measure.Delaylogs[delayIndex] = delayLog
+		}
 
-		measure.Delaylogs = append(measure.Delaylogs, delayLog)
 		measure.FinishTime = 0
 		excutes[index] = measure
 	} else {
@@ -34,12 +37,16 @@ func ResumeTime(name string) {
 	}
 }
 
-func PauseTime(name string) {
+func PauseTime(name string, delayPointName string) {
 	index := indexOf(name, excutes)
 	if index > -1 {
 		var measure= excutes[index]
 		measure.Name = name
 		measure.FinishTime = time.Now().Unix()
+		delayLog := types.DelayLog{}
+		delayLog.StartTime = measure.FinishTime
+		delayLog.DelayName = delayPointName
+		measure.Delaylogs = append(measure.Delaylogs, delayLog)
 		time1 := time.Unix(measure.StartTime, 0)
 		time2 := time.Unix(measure.FinishTime, 0)
 		diff := time2.Sub(time1)
@@ -99,4 +106,14 @@ func indexOf(element string, data []types.Measure) (int) {
 	}
 	return -1 //not found.
 }
+
+func indexOfDelayLog(element string, measure types.Measure) (int) {
+	for k, v := range measure.Delaylogs {
+		if v.DelayName == element {
+			return k
+		}
+	}
+	return -1 //not found.
+}
+
 
