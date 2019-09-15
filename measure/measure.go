@@ -102,6 +102,17 @@ func GetExecuteTimeJson(name string) ([]byte, error)  {
 	return nil, fmt.Errorf("Execute not found: %s", name)
 }
 
+func GetAllExecuteTimeJson() ([]byte, error)  {
+
+	excutesJson, err := json.Marshal(excutes)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	return excutesJson, nil
+}
+
+
 func indexOf(element string, data []types.Measure) (int) {
 	for k, v := range data {
 		if v.Name == element {
