@@ -16,5 +16,5 @@ type DelayLog struct {
 	DelayName string `json:"delayName"`
 	StartTime int64  `json:"startTime"`
 	FinishTime int64 `json:"finishTime"`
-	TotalTime int64  `json:"totalTime"`
+	TotalTime time.Duration  `json:"totalTime"`
 }
