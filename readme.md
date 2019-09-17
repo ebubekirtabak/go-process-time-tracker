@@ -4,15 +4,44 @@
 Go Time Log is time measure library for your function time.
 
 **WHY ?**
-
+-
 We can want measure execution time for our functions.
 
-**HOW ?**
+**Features**
+- 
+
+
+**Usage**
+-
+
+Start a single tracker:
+```GO
+measure.StartTime("$TRACKER_NAME")
+```
+
+You can **Pause** and **Resume** tracker.
+Pause tracker:
+
+```GO
+measure.PauseTime("$TRACKER_NAME", "$DELAY_POINT_NAME")
+```
+
+**Resume**
+
+````GO
+measure.ResumeTime("$DELAY_POINT_NAME", "$DELAY_POINT_NAME")
+````
 
 ```GO
 measure.StartTime("$TRACKER_NAME")
-{...}
+var sum = 1
+for  i := 0; i < 100000000000; i++ {
+	sum = i * sum * sum * i
+}
 measure.FinishTime("$TRACKER_NAME")
+mainTime := measure.GetExecuteTime("$TRACKER_NAME")
+// OR
+mainTimeJson, err := measure.GetExecuteTimeJson("$TRACKER_NAME")
 ```
 
 Response: 
@@ -26,7 +55,7 @@ Response:
   "pauseStartTime": 0,
   "totalTime": 15000000000,
   "delayLogs": [
-    {S
+    {
       "delayName": "firstDelay",
       "startTime": 1568569505,
       "finishTime": 1568569510,
