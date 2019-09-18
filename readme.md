@@ -9,7 +9,9 @@ We can want measure execution time for our functions.
 
 **Features**
 - 
-
+* Create multiple tracker.
+* Pause Tracker.
+* Resume Tracker.
 
 **Usage**
 -
@@ -32,6 +34,7 @@ measure.PauseTime("$TRACKER_NAME", "$DELAY_POINT_NAME")
 measure.ResumeTime("$DELAY_POINT_NAME", "$DELAY_POINT_NAME")
 ````
 
+Test Code:
 ```GO
 measure.StartTime("$TRACKER_NAME")
 var sum = 1
@@ -72,7 +75,7 @@ Response:
 ```
 
 **Contributing**
-
+-
 Contributions are welcome! Fork this repo and add your changes and submit a PR.
 
 If you would like to fix a bug, add a feature or provide feedback you can do so in the issues section.
