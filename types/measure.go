@@ -9,11 +9,11 @@ type Measure struct {
 	FinishTime int64		`json:"finishTime"`
 	PauseStartTime int64 	`json:"pauseStartTime"`
 	TotalTime time.Duration `json:"totalTime"`
-	Delaylogs []DelayLog	`json:"delayLogs"`
+	Subtracker []SubTrucker	`json:"subtruckers"`
 }
 
-type DelayLog struct {
-	DelayName string `json:"delayName"`
+type SubTrucker struct {
+	SubTruckerName string `json:"delayName"`
 	StartTime int64  `json:"startTime"`
 	FinishTime int64 `json:"finishTime"`
 	TotalTime time.Duration  `json:"totalTime"`
