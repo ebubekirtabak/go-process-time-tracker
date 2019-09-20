@@ -2,7 +2,7 @@ package types
 
 import "time"
 
-type Measure struct {
+type Trucker struct {
 	Name string 			`json:"name"`
 	FirstStartTime int64	`json:"firstStartTime"`
 	StartTime int64			`json:"startTime"`
