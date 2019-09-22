@@ -2,18 +2,18 @@ package types
 
 import "time"
 
-type Trucker struct {
+type Tracker struct {
 	Name string 			`json:"name"`
 	FirstStartTime int64	`json:"firstStartTime"`
 	StartTime int64			`json:"startTime"`
 	FinishTime int64		`json:"finishTime"`
 	PauseStartTime int64 	`json:"pauseStartTime"`
 	TotalTime time.Duration `json:"totalTime"`
-	Subtracker []SubTrucker	`json:"subtruckers"`
+	Subtrackers []SubTracker	`json:"subtrackers"`
 }
 
-type SubTrucker struct {
-	SubTruckerName string `json:"delayName"`
+type SubTracker struct {
+	SubTrackerName string `json:"delayName"`
 	StartTime int64  `json:"startTime"`
 	FinishTime int64 `json:"finishTime"`
 	TotalTime time.Duration  `json:"totalTime"`
