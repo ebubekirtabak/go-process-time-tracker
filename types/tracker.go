@@ -4,8 +4,8 @@ import "time"
 
 type Tracker struct {
 	Name string 			`json:"name"`
-	FirstStartTime int64	`json:"firstStartTime"`
-	StartTime int64			`json:"startTime"`
+	StartTime time.Time		`json:"startTime"`
+	StartTimeUnix int64		`json:"startTimeUnix"`
 	FinishTime int64		`json:"finishTime"`
 	PauseStartTime int64 	`json:"pauseStartTime"`
 	TotalTime time.Duration `json:"totalTime"`
@@ -13,8 +13,9 @@ type Tracker struct {
 }
 
 type SubTracker struct {
-	SubTrackerName string `json:"delayName"`
-	StartTime int64  `json:"startTime"`
-	FinishTime int64 `json:"finishTime"`
-	TotalTime time.Duration  `json:"totalTime"`
+	SubTrackerName string 		  `json:"delayName"`
+	StartTime 	   time.Time  	  `json:"startTime"`
+	StartTimeUnix  int64  		  `json:"startTime"`
+	FinishTime     int64 		  `json:"finishTime"`
+	TotalTime      time.Duration  `json:"totalTime"`
 }
