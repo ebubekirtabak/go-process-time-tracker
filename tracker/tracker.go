@@ -7,50 +7,50 @@ import (
 	"encoding/json"
 )
 
-var excutes []types.Measure
+var excutes []types.Tracker
 
-func StartTime(name string) {
-	var measure = types.Measure{}
+func StartTracker(name string) {
+	var measure = types.Tracker{}
 	measure.Name = name
 	measure.FirstStartTime = time.Now().Unix()
 	measure.StartTime = measure.FirstStartTime
 	excutes = append(excutes, measure)
 }
 
-func ResumeTime(name string, delayPointName string) {
+func FinishSubTracker(name string, subTrackerName string) {
 	index := indexOf(name, excutes)
 	if index > -1 {
 		var measure= excutes[index]
 		measure.StartTime = time.Now().Unix()
-		delayIndex := indexOfDelayLog(delayPointName, measure)
-		if delayIndex > -1 {
-			delayLog := measure.Delaylogs[delayIndex]
-			delayLog.StartTime = measure.FinishTime
-			delayLog.FinishTime = measure.StartTime
-			startTime := time.Unix(delayLog.StartTime, 0)
-			finishTime := time.Unix(delayLog.FinishTime, 0)
+		subTrackerIndex := indexOfSubTracker(subTrackerName, measure)
+		if subTrackerIndex > -1 {
+			subTracker := measure.Subtrackers[subTrackerIndex]
+			subTracker.StartTime = measure.FinishTime
+			subTracker.FinishTime = measure.StartTime
+			startTime := time.Unix(subTracker.StartTime, 0)
+			finishTime := time.Unix(subTracker.FinishTime, 0)
 			diff := finishTime.Sub(startTime)
-			delayLog.TotalTime += diff
-			measure.Delaylogs[delayIndex] = delayLog
+			subTracker.TotalTime += diff
+			measure.Subtrackers[subTrackerIndex] = subTracker
 		}
 
 		measure.FinishTime = 0
 		excutes[index] = measure
 	} else {
-		StartTime(name)
+		StartTracker(name)
 	}
 }
 
-func PauseTime(name string, delayPointName string) {
+func StartSubTracker(name string, subTrackerName string) {
 	index := indexOf(name, excutes)
 	if index > -1 {
 		var measure= excutes[index]
 		measure.Name = name
 		measure.FinishTime = time.Now().Unix()
-		delayLog := types.DelayLog{}
-		delayLog.StartTime = measure.FinishTime
-		delayLog.DelayName = delayPointName
-		measure.Delaylogs = append(measure.Delaylogs, delayLog)
+		subTracker := types.SubTracker{}
+		subTracker.StartTime = measure.FinishTime
+		subTracker.SubTrackerName = subTrackerName
+		measure.Subtrackers = append(measure.Subtrackers, subTracker)
 		time1 := time.Unix(measure.StartTime, 0)
 		time2 := time.Unix(measure.FinishTime, 0)
 		diff := time2.Sub(time1)
@@ -61,7 +61,7 @@ func PauseTime(name string, delayPointName string) {
 	}
 }
 
-func FinishTime(name string) types.Measure {
+func FinishTracker(name string) types.Tracker {
 	index := indexOf(name, excutes)
 	if index > -1 {
 		var measure = excutes[index]
@@ -71,7 +71,7 @@ func FinishTime(name string) types.Measure {
 		return measure
 	}
 
-	return types.Measure{}
+	return types.Tracker{}
 }
 
 func GetExecuteTime(name string) {
@@ -113,7 +113,7 @@ func GetAllExecuteTimeJson() ([]byte, error)  {
 }
 
 
-func indexOf(element string, data []types.Measure) (int) {
+func indexOf(element string, data []types.Tracker) (int) {
 	for k, v := range data {
 		if v.Name == element {
 			return k
@@ -122,9 +122,9 @@ func indexOf(element string, data []types.Measure) (int) {
 	return -1 //not found.
 }
 
-func indexOfDelayLog(element string, measure types.Measure) (int) {
-	for k, v := range measure.Delaylogs {
-		if v.DelayName == element {
+func indexOfSubTracker(element string, measure types.Tracker) (int) {
+	for k, v := range measure.Subtrackers {
+		if v.SubTrackerName == element {
 			return k
 		}
 	}
