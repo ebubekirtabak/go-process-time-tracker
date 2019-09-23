@@ -12,8 +12,8 @@ var excutes []types.Tracker
 func StartTracker(name string) {
 	var measure = types.Tracker{}
 	measure.Name = name
-	measure.FirstStartTime = time.Now().Unix()
-	measure.StartTime = measure.FirstStartTime
+	measure.StartTimeUnix = time.Now().Unix()
+	measure.StartTime = time.Now()
 	excutes = append(excutes, measure)
 }
 
@@ -21,20 +21,20 @@ func FinishSubTracker(name string, subTrackerName string) {
 	index := indexOf(name, excutes)
 	if index > -1 {
 		var measure= excutes[index]
-		measure.StartTime = time.Now().Unix()
+		measure.StartTimeUnix = time.Now().Unix()
 		subTrackerIndex := indexOfSubTracker(subTrackerName, measure)
 		if subTrackerIndex > -1 {
 			subTracker := measure.Subtrackers[subTrackerIndex]
-			subTracker.StartTime = measure.FinishTime
-			subTracker.FinishTime = measure.StartTime
-			startTime := time.Unix(subTracker.StartTime, 0)
-			finishTime := time.Unix(subTracker.FinishTime, 0)
+			subTracker.StartTimeUnix = measure.FinishTimeUnix
+			subTracker.FinishTimeUnix = measure.StartTimeUnix
+			startTime := time.Unix(subTracker.StartTimeUnix, 0)
+			finishTime := time.Unix(subTracker.FinishTimeUnix, 0)
 			diff := finishTime.Sub(startTime)
 			subTracker.TotalTime += diff
 			measure.Subtrackers[subTrackerIndex] = subTracker
 		}
 
-		measure.FinishTime = 0
+		measure.FinishTimeUnix = 0
 		excutes[index] = measure
 	} else {
 		StartTracker(name)
@@ -46,13 +46,15 @@ func StartSubTracker(name string, subTrackerName string) {
 	if index > -1 {
 		var measure= excutes[index]
 		measure.Name = name
-		measure.FinishTime = time.Now().Unix()
+		measure.FinishTime = time.Now()
+		measure.FinishTimeUnix = time.Now().Unix()
 		subTracker := types.SubTracker{}
 		subTracker.StartTime = measure.FinishTime
+		subTracker.StartTimeUnix = measure.FinishTimeUnix
 		subTracker.SubTrackerName = subTrackerName
 		measure.Subtrackers = append(measure.Subtrackers, subTracker)
-		time1 := time.Unix(measure.StartTime, 0)
-		time2 := time.Unix(measure.FinishTime, 0)
+		time1 := time.Unix(measure.StartTimeUnix, 0)
+		time2 := time.Unix(measure.FinishTimeUnix, 0)
 		diff := time2.Sub(time1)
 		measure.TotalTime += diff
 		out := time.Time{}.Add(diff)
@@ -66,7 +68,8 @@ func FinishTracker(name string) types.Tracker {
 	if index > -1 {
 		var measure = excutes[index]
 		measure.Name = name
-		measure.FinishTime = time.Now().Unix()
+		measure.FinishTimeUnix = time.Now().Unix()
+		measure.FinishTime = time.Now()
 		excutes[index] = measure
 		return measure
 	}
@@ -78,8 +81,8 @@ func GetExecuteTime(name string) {
 	index := indexOf(name, excutes)
 	if index > -1 {
 		var measure = excutes[index]
-		time1 := time.Unix(measure.StartTime, 0)
-		time2 := time.Unix(measure.FinishTime, 0)
+		time1 := time.Unix(measure.StartTimeUnix, 0)
+		time2 := time.Unix(measure.FinishTimeUnix, 0)
 		diff := time2.Sub(time1)
 		measure.TotalTime += diff
 		out := time.Time{}.Add(measure.TotalTime)
