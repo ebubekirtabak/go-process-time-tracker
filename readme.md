@@ -1,7 +1,7 @@
 
-# GOTIMELOG
+# GOTIMETRACKER
 
-Go Time Log is time measure library for your function time.
+Go Time Tracker is time measure library for your function time.
 
 **WHY ?**
 -
@@ -10,8 +10,7 @@ We can want measure execution time for our functions.
 **Features**
 - 
 * Create multiple tracker.
-* Pause Tracker.
-* Resume Tracker.
+* Sub Tracker.
 
 **Usage**
 -
@@ -21,18 +20,25 @@ Start a single tracker:
 measure.StartTime("$TRACKER_NAME")
 ```
 
-You can **Pause** and **Resume** tracker.
-Pause tracker:
+You can create multiple **Sub Tracker**.
+
+Start Sub Tracker:
 
 ```GO
-measure.PauseTime("$TRACKER_NAME", "$DELAY_POINT_NAME")
+measure.StartSubTracker("$TRACKER_NAME", "$SUB_TRACKER_NAME")
 ```
 
 **Resume**
 
 ````GO
-measure.ResumeTime("$DELAY_POINT_NAME", "$DELAY_POINT_NAME")
+measure.FinishSubTrackere("$TRACKER_NAME", "$SUB_TRACKER_NAME")
 ````
+
+**Finish**
+
+```GO
+measure.FinishTime("$TRACKER_NAME")
+```
 
 Test Code:
 ```GO
