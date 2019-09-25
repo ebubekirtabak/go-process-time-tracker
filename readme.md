@@ -56,28 +56,53 @@ mainTimeJson, err := measure.GetExecuteTimeJson("$TRACKER_NAME")
 Response: 
 
 ```json
-{
-  "name": "$TRACKER_NAME",
-  "firstStartTime": 1568569495,
-  "startTime": 1568569520,
-  "finishTime": 1568569550,
-  "pauseStartTime": 0,
-  "totalTime": 15000000000,
-  "delayLogs": [
-    {
-      "delayName": "firstDelay",
-      "startTime": 1568569505,
-      "finishTime": 1568569510,
-      "totalTime": 5000000000
-    },
-    {
-      "delayName": "lastDelay",
-      "startTime": 1568569515,
-      "finishTime": 1568569520,
-      "totalTime": 5000000000
-    }
-  ]
-}
+[
+  {
+    "name": "main",
+    "startTime": "2019-09-25T21:33:33.092833996+03:00",
+    "startTimeUnix": 1569436471,
+    "finishTime": "2019-09-25T21:34:31.302779044+03:00",
+    "finishTimeUnix": 0,
+    "pauseStartTime": 0,
+    "totalTime": 48000000000,
+    "subtrackers": [
+      {
+        "delayName": "firstDelay",
+        "startTime": "2019-09-25T21:33:46.290234007+03:00",
+        "startTimeUnix": 1569436426,
+        "finishTime": "0001-01-01T00:00:00Z",
+        "finishTimeUnix": 1569436431,
+        "totalTime": 5000000000
+      },
+      {
+        "delayName": "lastDelay",
+        "startTime": "2019-09-25T21:33:56.296966325+03:00",
+        "startTimeUnix": 1569436436,
+        "finishTime": "0001-01-01T00:00:00Z",
+        "finishTimeUnix": 1569436441,
+        "totalTime": 5000000000
+      },
+      {
+        "delayName": "imageRequest",
+        "startTime": "2019-09-25T21:34:31.302779044+03:00",
+        "startTimeUnix": 1569436471,
+        "finishTime": "0001-01-01T00:00:00Z",
+        "finishTimeUnix": 1569436471,
+        "totalTime": 0
+      }
+    ]
+  },
+  {
+    "name": "sum",
+    "startTime": "2019-09-25T21:33:33.092836126+03:00",
+    "startTimeUnix": 1569436413,
+    "finishTime": "2019-09-25T21:33:36.261081316+03:00",
+    "finishTimeUnix": 1569436416,
+    "pauseStartTime": 0,
+    "totalTime": 0,
+    "subtrackers": null
+  }
+]
 ```
 
 **Contributing**
