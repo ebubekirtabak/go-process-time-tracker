@@ -31,7 +31,7 @@ measure.StartSubTracker("$TRACKER_NAME", "$SUB_TRACKER_NAME")
 **Resume**
 
 ````GO
-measure.FinishSubTrackere("$TRACKER_NAME", "$SUB_TRACKER_NAME")
+measure.FinishSubTracker("$TRACKER_NAME", "$SUB_TRACKER_NAME")
 ````
 
 **Finish**
