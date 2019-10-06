@@ -27,6 +27,7 @@ func FinishSubTracker(name string, subTrackerName string) {
 			subTracker := measure.Subtrackers[subTrackerIndex]
 			subTracker.StartTimeUnix = measure.FinishTimeUnix
 			subTracker.FinishTimeUnix = measure.StartTimeUnix
+			subTracker.FinishTime = time.Now()
 			startTime := time.Unix(subTracker.StartTimeUnix, 0)
 			finishTime := time.Unix(subTracker.FinishTimeUnix, 0)
 			diff := finishTime.Sub(startTime)
