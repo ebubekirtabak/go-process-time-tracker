@@ -17,7 +17,7 @@ We can want measure execution time for our functions.
 
 Start a single tracker:
 ```GO
-measure.StartTime("$TRACKER_NAME")
+tracker.StartTime("$TRACKER_NAME")
 ```
 
 You can create multiple **Sub Tracker**.
@@ -25,32 +25,32 @@ You can create multiple **Sub Tracker**.
 Start Sub Tracker:
 
 ```GO
-measure.StartSubTracker("$TRACKER_NAME", "$SUB_TRACKER_NAME")
+tracker.StartSubTracker("$TRACKER_NAME", "$SUB_TRACKER_NAME")
 ```
 
 **Resume**
 
 ````GO
-measure.FinishSubTracker("$TRACKER_NAME", "$SUB_TRACKER_NAME")
+tracker.FinishSubTracker("$TRACKER_NAME", "$SUB_TRACKER_NAME")
 ````
 
 **Finish**
 
 ```GO
-measure.FinishTime("$TRACKER_NAME")
+tracker.FinishTime("$TRACKER_NAME")
 ```
 
 Test Code:
 ```GO
-measure.StartTime("$TRACKER_NAME")
+tracker.StartTime("$TRACKER_NAME")
 var sum = 1
 for  i := 0; i < 100000000000; i++ {
 	sum = i * sum * sum * i
 }
-measure.FinishTime("$TRACKER_NAME")
+tracker.FinishTime("$TRACKER_NAME")
 mainTime := measure.GetExecuteTime("$TRACKER_NAME")
 // OR
-mainTimeJson, err := measure.GetExecuteTimeJson("$TRACKER_NAME")
+mainTimeJson, err := tracker.GetExecuteTimeJson("$TRACKER_NAME")
 ```
 
 Response: 
