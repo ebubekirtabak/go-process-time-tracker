@@ -15,7 +15,11 @@ We can want measure execution time for our functions.
 **Usage**
 -
 
-Start a single tracker:
+**import:**
+```GO
+import ("go-excute-time-measure/tracker")
+```
+**Start a single tracker:**
 ```GO
 tracker.StartTime("$TRACKER_NAME")
 ```
