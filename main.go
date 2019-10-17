@@ -14,11 +14,13 @@ func main() {
 	for  i := 0; i < 10000000000; i++ {
 		sum = i * sum * sum * i
 	}
+
 	fmt.Println(tracker.FinishTracker("sum"))
 	tracker.GetExecuteTime("sum")
 	for i := 0; i < 10; i++ {
 		time.Sleep(1 * time.Second)
 	}
+
 	tracker.StartSubTracker("main", "firstDelay")
 	time.Sleep(5 * time.Second)
 	tracker.FinishSubTracker("main", "firstDelay")

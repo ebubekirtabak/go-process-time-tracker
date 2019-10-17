@@ -22,13 +22,13 @@ tracker.StartTime("$TRACKER_NAME")
 
 You can create multiple **Sub Tracker**.
 
-Start Sub Tracker:
+**Start Sub Tracker**:
 
 ```GO
 tracker.StartSubTracker("$TRACKER_NAME", "$SUB_TRACKER_NAME")
 ```
 
-**Resume**
+**Finish Sub Tracker**
 
 ````GO
 tracker.FinishSubTracker("$TRACKER_NAME", "$SUB_TRACKER_NAME")
